@@ -1,10 +1,12 @@
 import { ThunkAction, configureStore, Action } from "@reduxjs/toolkit";
-import productSlice from "./feature/productsSlice";
+import productSlice from "./feature/product/productSlice";
+import productsSlice from "./feature/product/productsSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
-    products: productSlice,
+    products: productsSlice,
+    product: productSlice,
   },
 });
 

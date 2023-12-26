@@ -2,34 +2,32 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { ProductType } from "@/utils/type";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/store";
+import {
+  getSingleProduct,
+  selectProduct,
+} from "@/store/feature/product/productSlice";
+import Loader from "@/components/shared/Loader";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const URL = `https://dummyjson.com/products/${id}`;
 
-  const [product, setProduct] = useState<ProductType>();
   const [activeImg, setActiveImg] = useState(0);
-  console.log(product);
-
-  const fetchProduct = async () => {
-    fetch(URL)
-      .then((res) => res.json())
-      .then((data) => setProduct(data))
-      .catch((err) => console.log(err));
-  };
+  const dispatch = useAppDispatch();
+  const { isLoading, product } = useAppSelector(selectProduct);
 
   useEffect(() => {
-    fetchProduct();
-  }, [id]);
+    dispatch(getSingleProduct(id));
+  }, [id, dispatch]);
 
   return (
     <section className="bg-secondary p-14">
-      {product && (
+      {isLoading ? (
+        <Loader />
+      ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
           <div className="flex flex-col gap-y-6 ">
-            {/* product image */}
             <div className="min-h-[500px]">
               <Image
                 src={product.images[activeImg]}
@@ -40,7 +38,6 @@ const ProductDetail = () => {
               />
             </div>
 
-            {/* proudct images */}
             <div className="grid grid-cols-3 gap-4">
               {product.images.map((image, index) => {
                 return (
@@ -58,7 +55,6 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* product content */}
           <div className="flex flex-col gap-y-4">
             <div className="bg-red-600 text-white text-xs max-w-[100px] w-full text-center py-2 rounded-md">
               {product.brand}
@@ -66,7 +62,6 @@ const ProductDetail = () => {
             <h3 className="font-semibold text-5xl ">{product.title}</h3>
             <p className="text-base font-semibold">${product.price}</p>
             <p className="text-sm">{product.description}</p>
-            {/* <p className="text-sm">{product.rating}</p> */}
             <p className="text-sm">
               <span className="font-medium">Category</span>: {product.category}
             </p>
