@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* background-color: rgba(0, 0, 0, 0.08); */
+}
+
+/* :root {
+  --bg-secondary: rgb(209 213 219 / 0.25);
+} */
+
+.flex__center {
+  @apply flex justify-center items-center;
+}
