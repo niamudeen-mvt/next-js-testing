@@ -22,7 +22,7 @@ const ProductDetail = () => {
   }, [id, dispatch]);
 
   return (
-    <section className="bg-secondary p-14">
+    <section className="bg-secondary p-4 sm:p-14">
       {isLoading ? (
         <Loader />
       ) : (
@@ -56,10 +56,12 @@ const ProductDetail = () => {
           </div>
 
           <div className="flex flex-col gap-y-4">
-            <div className="bg-red-600 text-white text-xs max-w-[100px] w-full text-center py-2 rounded-md">
+            <div className="bg-red-600 text-white text-xs  text-center py-2 rounded-md">
               {product.brand}
             </div>
-            <h3 className="font-semibold text-5xl ">{product.title}</h3>
+            <h3 className="font-semibold text-5xl capitalize">
+              {product.title}
+            </h3>
             <p className="text-base font-semibold">${product.price}</p>
             <p className="text-sm">{product.description}</p>
             <p className="text-sm">

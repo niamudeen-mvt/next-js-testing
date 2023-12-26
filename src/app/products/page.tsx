@@ -10,28 +10,43 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store";
 import Loader from "@/components/shared/Loader";
 import Categories from "@/components/product/Categories";
+// import CustomSearchInput from "@/components/shared/CustomSearchInput";
 
 const Products = () => {
   const dispatch = useAppDispatch();
   const [activeCategory, setActiveCategory] = useState("all");
+  const [searchValue, setSearchValue] = useState("");
+
   const { isLoading, products } = useAppSelector(selectProducts);
 
   useEffect(() => {
     dispatch(getProducts(activeCategory));
   }, [activeCategory]);
 
-  const TITLE = `products${
+  const TITLE = `Products${
     activeCategory === "all" ? "" : `/${activeCategory}`
   }`;
 
+  // const handleSearchProduct = () => {
+  //   fetch(`https://dummyjson.com/products/search?q=${searchValue}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data), setSearchValue("");
+  //     });
+  // };
   return (
     <section>
       {isLoading ? (
         <Loader />
       ) : (
-        <>
-          <h1 className="font-semibold text-3xl my-8  px-8">{TITLE}</h1>
-          <div className="flex justify-end mb-10">
+        <div className="flex flex-col gap-y-8">
+          <h1 className="font-semibold text-3xl px-8">{TITLE}</h1>
+          <div className="flex justify-end">
+            {/* <CustomSearchInput
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              handleSearch={handleSearchProduct}
+            /> */}
             <Categories
               activeCategory={activeCategory}
               setActiveCategory={setActiveCategory}
@@ -73,7 +88,7 @@ const Products = () => {
                 }
               )}
           </div>
-        </>
+        </div>
       )}
     </section>
   );

@@ -18,6 +18,7 @@ const Header = () => {
       setShowNav(false);
     }
   }, [windowSize.width]);
+
   return (
     <header
       className={`bg-white text-black p-5 flex justify-between items-center lg:container mx-auto`}
@@ -39,7 +40,7 @@ const Header = () => {
         >
           {menuItems.map(({ id, title, path }) => {
             return (
-              <Link key={id} href={path}>
+              <Link key={id} href={path} onClick={() => setShowNav(false)}>
                 <li className="font-medium text-xs cursor-pointer  p-2 hover:bg-slate-300/25   rounded-md transition-all duration-300">
                   {title}
                 </li>
