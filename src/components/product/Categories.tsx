@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CustomDrodown from "../shared/CustomDropdown";
+import { DEFAULT_CATEGORY } from "@/utils/constants";
 
 const Categories = ({
   activeCategory,
@@ -24,7 +25,7 @@ const Categories = ({
 
   const dropdownListData = productCategories.map((category, index) => {
     if (index === 0) {
-      return { title: "all" };
+      return { title: DEFAULT_CATEGORY };
     } else {
       return { title: category };
     }

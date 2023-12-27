@@ -1,6 +1,7 @@
 import { ProductType } from "@/utils/type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../..";
+import { DEFAULT_CATEGORY } from "@/utils/constants";
 
 type ProductState = {
   isLoading: boolean;
@@ -18,7 +19,7 @@ export const getProducts = createAsyncThunk(
   async (category: string) => {
     try {
       let res;
-      if (category === "all") {
+      if (category === DEFAULT_CATEGORY) {
         res = await fetch("https://dummyjson.com/products").then((res) =>
           res.json()
         );

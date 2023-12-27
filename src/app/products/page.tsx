@@ -10,9 +10,10 @@ import Categories from "@/components/product/Categories";
 import CustomSearchInput from "@/components/shared/CustomSearchInput";
 import Loader from "@/components/shared/Loader";
 import ProductCard from "@/components/product/ProductCard";
+import { DEFAULT_CATEGORY } from "@/utils/constants";
 
 const Products = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState(DEFAULT_CATEGORY);
   const [searchValue, setSearchValue] = useState("");
   const { isLoading, products } = useAppSelector(selectProducts);
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ const Products = () => {
   }, [activeCategory, searchValue, dispatch]);
 
   const TITLE = `Products${
-    activeCategory === "all" ? "" : `/${activeCategory}`
+    activeCategory === DEFAULT_CATEGORY ? "" : `/${activeCategory}`
   }`;
 
   return (

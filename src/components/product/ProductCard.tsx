@@ -49,7 +49,7 @@ const ProductCard = ({ product }: Props) => {
         <p className="text-sm font-semibold">${price}</p>
         <Rating rating={rating} />
         <button
-          className={`bg-black text-white text-xs px-3 py-3 rounded-md`}
+          className={`bg-black text-white text-xs px-3 py-3 rounded-md hover:bg-black/75`}
           onClick={handleAddtoCart}
         >
           Add to Cart
