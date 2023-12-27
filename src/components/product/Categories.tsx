@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CustomDrodown from "../shared/CustomDropdown";
 
 const Categories = ({
+  activeCategory,
   setActiveCategory,
 }: {
   activeCategory: string;
@@ -32,6 +33,7 @@ const Categories = ({
   return (
     <div>
       <CustomDrodown
+        activeCategory={activeCategory}
         showMenu={showMenu}
         setShowMenu={setShowMenu}
         dropdownListData={dropdownListData}

@@ -28,7 +28,25 @@ export const getProducts = createAsyncThunk(
         ).then((res) => res.json());
       }
       return res;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
+export const searchProducts = createAsyncThunk(
+  "products/searchProducts",
+  async (searchValue: string) => {
+    try {
+      let res = await fetch(
+        `https://dummyjson.com/products/search?q=${searchValue}`
+      ).then((res) => res.json());
+
+      console.log(res, "res");
+      return res;
+    } catch (error) {
+      return error;
+    }
   }
 );
 
@@ -38,6 +56,7 @@ export const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // get products
       .addCase(getProducts.pending, (state) => {
         state.isLoading = true;
       })
@@ -46,6 +65,18 @@ export const productSlice = createSlice({
         state.products = payload.products;
       })
       .addCase(getProducts.rejected, (state) => {
+        state.isLoading = false;
+        state.error = true;
+      })
+      // search products
+      .addCase(searchProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(searchProducts.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.products = payload.products;
+      })
+      .addCase(searchProducts.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
       });

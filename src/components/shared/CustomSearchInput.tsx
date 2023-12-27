@@ -1,30 +1,31 @@
 "use client";
 
+import { useAppDispatch } from "@/store";
+import { searchProducts } from "@/store/feature/product/productsSlice";
 import React from "react";
 
 type InputProps = {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  handleSearch: () => void;
 };
 
-const CustomSearchInput = ({
-  searchValue,
-  setSearchValue,
-  handleSearch,
-}: InputProps) => {
+const CustomSearchInput = ({ searchValue, setSearchValue }: InputProps) => {
+  const dispatch = useAppDispatch();
+  const handleSearchProduct = () => {
+    dispatch(searchProducts(searchValue));
+  };
   return (
-    <div>
+    <div className="w-full flex gap-x-4">
       <input
         type="text"
-        className="border pl-4 py-2 rounded-md"
+        className="pl-4 py-2 rounded-md w-1/2 border-2 border-gray-200 outline-none"
         placeholder="Searh here....."
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
       <button
-        className="bg-blue-500 py-2 px-3 rounded-md"
-        onClick={handleSearch}
+        className="bg-blue-300 text-sm py-2 px-4 rounded-md"
+        onClick={handleSearchProduct}
       >
         Search
       </button>

@@ -1,6 +1,7 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 type Props = {
+  activeCategory: string;
   showMenu: boolean;
   dropdownListData: { title: string }[];
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,6 +9,7 @@ type Props = {
 };
 
 const CustomDrodown = ({
+  activeCategory,
   setShowMenu,
   showMenu,
   dropdownListData,
@@ -31,8 +33,13 @@ const CustomDrodown = ({
               return (
                 <li
                   key={title}
-                  onClick={() => setActiveCategory(title)}
-                  className="flex gap-x-2 hover:bg-blue-300 mb-3 px-3 py-1 rounded-md transition-all duration-300  capitalize"
+                  onClick={() => {
+                    setActiveCategory(title);
+                    setShowMenu(!showMenu);
+                  }}
+                  className={`flex gap-x-2 hover:bg-blue-300 mb-3 px-3 py-1 rounded-md transition-all duration-300  capitalize ${
+                    activeCategory === title ? "bg-blue-300" : ""
+                  }`}
                 >
                   <span className="text-xs">{title}</span>
                 </li>

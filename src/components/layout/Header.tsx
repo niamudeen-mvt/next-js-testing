@@ -8,9 +8,11 @@ import { IoCloseSharp } from "react-icons/io5";
 import { FaSquareXing } from "react-icons/fa6";
 import useWindowSize from "@/hooks/useWindowSize";
 import CustomButton from "../shared/CustomButton";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
+  const pathname = usePathname();
 
   const windowSize = useWindowSize();
   useEffect(() => {
@@ -21,7 +23,7 @@ const Header = () => {
 
   return (
     <header
-      className={`bg-white text-black p-5 flex justify-between items-center lg:container mx-auto`}
+      className={`bg-white text-black p-5 flex justify-between items-center lg:container mx-auto sticky top-0 z-40`}
     >
       <Link href="/" className="size-10 z-50">
         <FaSquareXing className="size-8" />
@@ -41,7 +43,11 @@ const Header = () => {
           {menuItems.map(({ id, title, path }) => {
             return (
               <Link key={id} href={path} onClick={() => setShowNav(false)}>
-                <li className="font-medium text-xs cursor-pointer  p-2 hover:bg-slate-300/25   rounded-md transition-all duration-300">
+                <li
+                  className={`text-xs cursor-pointer  p-2 hover:bg-slate-300/25  rounded-md transition-all duration-300 ${
+                    pathname === path ? "font-semibold" : ""
+                  }`}
+                >
                   {title}
                 </li>
               </Link>
