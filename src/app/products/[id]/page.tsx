@@ -11,6 +11,7 @@ import {
 import Loader from "@/components/shared/Loader";
 import Rating from "@/components/product/Rating";
 import ProductLabel from "@/components/product/label";
+import { addToCart, selectCart } from "@/store/feature/cart/cartSlice";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -18,13 +19,34 @@ const ProductDetail = () => {
   const [activeImg, setActiveImg] = useState(0);
   const dispatch = useAppDispatch();
   const { isLoading, product } = useAppSelector(selectProduct);
+  const { products: cartProducts } = useAppSelector(selectCart);
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [id, dispatch]);
 
-  const { brand, price, rating, title, description, images, category } =
-    product;
+  const {
+    id: productId,
+    brand,
+    price,
+    rating,
+    title,
+    description,
+    images,
+    category,
+  } = product;
+
+  const handleAddtoCart = () => {
+    const productExist = cartProducts.findIndex(
+      (product) => product.id == productId
+    );
+
+    if (productExist === -1) {
+      dispatch(addToCart(product));
+    } else {
+      console.log("product already exist");
+    }
+  };
 
   return (
     <section className="bg-secondary p-4 sm:p-14">
@@ -72,6 +94,12 @@ const ProductDetail = () => {
             </p>
             <ProductLabel text={brand} />
             <Rating rating={rating} />
+            <button
+              className={`bg-black text-white text-xs px-3 py-3 rounded-md`}
+              onClick={handleAddtoCart}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       )}

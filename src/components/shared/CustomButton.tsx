@@ -6,7 +6,7 @@ type Props = {
   path?: string;
 };
 
-const CustomButton = ({ text = "text", path = "submit" }: Props) => {
+const CustomButton = ({ text = "text", path }: Props) => {
   const pathname = usePathname();
   return (
     <button

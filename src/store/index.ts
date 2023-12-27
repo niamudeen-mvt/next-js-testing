@@ -2,11 +2,13 @@ import { ThunkAction, configureStore, Action } from "@reduxjs/toolkit";
 import productSlice from "./feature/product/productSlice";
 import productsSlice from "./feature/product/productsSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import cartSlice from "./feature/cart/cartSlice";
 
 export const store = configureStore({
   reducer: {
     products: productsSlice,
     product: productSlice,
+    cart: cartSlice,
   },
 });
 

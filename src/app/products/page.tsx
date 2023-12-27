@@ -8,8 +8,8 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store";
 import Categories from "@/components/product/Categories";
 import CustomSearchInput from "@/components/shared/CustomSearchInput";
-import ProductCard from "@/components/product/ProductCard";
 import Loader from "@/components/shared/Loader";
+import ProductCard from "@/components/product/ProductCard";
 
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -32,9 +32,9 @@ const Products = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col gap-y-8">
+        <div className="flex flex-col gap-y-8 ">
           <h1 className="font-semibold text-3xl px-8">{TITLE}</h1>
-          <div className="flex justify-between">
+          <div className="flex justify-between px-8">
             <CustomSearchInput
               searchValue={searchValue}
               setSearchValue={setSearchValue}
@@ -50,7 +50,7 @@ const Products = () => {
                 return <ProductCard key={product.id} product={product} />;
               })
             ) : (
-              <p className="text-xs">No Products to Show</p>
+              <p className="text-xs px-8">No Products to Show</p>
             )}
           </div>
         </div>

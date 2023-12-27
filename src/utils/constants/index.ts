@@ -1,9 +1,7 @@
 export const menuItems = [
   { id: 1, title: "Home", path: "/" },
   { id: 2, title: "Products", path: "/products" },
-  { id: 3, title: "Blog", path: "#" },
-  { id: 4, title: "Pricing", path: "#" },
-  { id: 5, title: "About Us", path: "#" },
+  { id: 3, title: "cart", path: "/cart" },
 ];
 
 export const HeroSiderList = [

@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ProductType } from "@/utils/type";
 import Rating from "./Rating";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { addToCart, selectCart } from "@/store/feature/cart/cartSlice";
 
 type Props = {
   product: ProductType;
@@ -9,6 +11,19 @@ type Props = {
 
 const ProductCard = ({ product }: Props) => {
   const { id, price, rating, thumbnail, title, description } = product;
+
+  const dispatch = useAppDispatch();
+  const { products: cartProducts } = useAppSelector(selectCart);
+
+  const handleAddtoCart = () => {
+    const productExist = cartProducts.findIndex((product) => product.id == id);
+
+    if (productExist === -1) {
+      dispatch(addToCart(product));
+    } else {
+      console.log("product already exist");
+    }
+  };
   return (
     <div
       key={id}
@@ -33,6 +48,12 @@ const ProductCard = ({ product }: Props) => {
         <p className="text-sm">{description}</p>
         <p className="text-sm font-semibold">${price}</p>
         <Rating rating={rating} />
+        <button
+          className={`bg-black text-white text-xs px-3 py-3 rounded-md`}
+          onClick={handleAddtoCart}
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

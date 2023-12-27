@@ -9,10 +9,13 @@ import { FaSquareXing } from "react-icons/fa6";
 import useWindowSize from "@/hooks/useWindowSize";
 import CustomButton from "../shared/CustomButton";
 import { usePathname } from "next/navigation";
+import { useAppSelector } from "@/store";
+import { selectCart } from "@/store/feature/cart/cartSlice";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
   const pathname = usePathname();
+  const { products: cartProducts } = useAppSelector(selectCart);
 
   const windowSize = useWindowSize();
   useEffect(() => {
@@ -44,11 +47,15 @@ const Header = () => {
             return (
               <Link key={id} href={path} onClick={() => setShowNav(false)}>
                 <li
-                  className={`text-xs cursor-pointer  p-2 hover:bg-black hover:text-white active:bg-black active:text-white  rounded-md transition-all duration-300 ${
+                  className={`text-xs cursor-pointer  p-2 hover:bg-black hover:text-white active:bg-black active:text-white  rounded-md transition-all duration-300 capitalize ${
                     pathname === path ? "active" : ""
                   }`}
                 >
                   {title}
+                  {`  `}
+                  {title == "cart" && cartProducts.length > 0
+                    ? cartProducts?.length
+                    : ""}
                 </li>
               </Link>
             );
