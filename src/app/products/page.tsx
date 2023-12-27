@@ -29,29 +29,32 @@ const Products = () => {
 
   return (
     <section>
-      {isLoading && <Loader />}
-      <div className="flex flex-col gap-y-8">
-        <h1 className="font-semibold text-3xl px-8">{TITLE}</h1>
-        <div className="flex justify-between">
-          <CustomSearchInput
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-          />
-          <Categories
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="flex flex-col gap-y-8">
+          <h1 className="font-semibold text-3xl px-8">{TITLE}</h1>
+          <div className="flex justify-between">
+            <CustomSearchInput
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />
+            <Categories
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+            />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {products.length ? (
+              products.map((product) => {
+                return <ProductCard key={product.id} product={product} />;
+              })
+            ) : (
+              <p className="text-xs">No Products to Show</p>
+            )}
+          </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.length ? (
-            products.map((product) => {
-              return <ProductCard key={product.id} product={product} />;
-            })
-          ) : (
-            <p className="text-xs">No Products to Show</p>
-          )}
-        </div>
-      </div>
+      )}
     </section>
   );
 };

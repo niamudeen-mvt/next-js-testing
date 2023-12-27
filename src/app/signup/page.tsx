@@ -22,7 +22,7 @@ const SignupForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-y-5"
       >
-        <h1 className="text-4xl font-semibold ">Signup</h1>
+        <h1 className="text-4xl font-semibold">Signup</h1>
         <FormInput name={"name"} register={register} errors={errors} />
         <FormInput name={"email"} register={register} errors={errors} />
         <FormInput name={"phone"} register={register} errors={errors} />

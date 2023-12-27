@@ -53,6 +53,16 @@ const Header = () => {
               </Link>
             );
           })}
+          {showNav ? (
+            <>
+              <Link href="/login">
+                <CustomButton text="Log in" path="/login" />
+              </Link>
+              <Link href="/signup">
+                <CustomButton text="Signup" path="/signup" />
+              </Link>
+            </>
+          ) : null}
         </ul>
       </nav>
 

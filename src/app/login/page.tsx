@@ -10,19 +10,19 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    reset();
   };
-
   return (
     <BasicFormLayout image={LoginImage}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-y-10"
       >
-        <h1 className="text-4xl font-semibold ">Log In</h1>
+        <h1 className="text-4xl font-semibold">Log In</h1>
         <FormInput name={"email"} register={register} errors={errors} />
         <FormInput name={"password"} register={register} errors={errors} />
         <CustomButton text="Submit" path="submit" />
