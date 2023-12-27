@@ -60,7 +60,9 @@ const Header = () => {
         <Link href="/login">
           <CustomButton text="Log in" path="/login" />
         </Link>
-        <CustomButton text="Signup" path="/signup" />
+        <Link href="/signup">
+          <CustomButton text="Signup" path="/signup" />
+        </Link>
       </div>
 
       {showNav ? (
