@@ -16,3 +16,6 @@
 .flex__center {
   @apply flex justify-center items-center;
 }
+.active {
+  @apply bg-black text-white;
+}

@@ -1,16 +1,18 @@
+import { usePathname } from "next/navigation";
 import React from "react";
 
 type Props = {
   text?: string;
-  type?: string;
+  path?: string;
 };
 
-const CustomButton = ({ text = "text", type = "dark" }: Props) => {
+const CustomButton = ({ text = "text", path = "submit" }: Props) => {
+  const pathname = usePathname();
   return (
     <button
-      className={`${
-        type === "light" ? "bg-white text-black" : "bg-black text-white"
-      } font-medium text-xs px-3 py-2 rounded-md `}
+      className={`text-xs px-3 py-2 rounded-md ${
+        pathname === path ? "active" : ""
+      } ${path === "submit" ? "bg-blue-400 py-3 w-1/2 text-white" : ""}`}
     >
       {text}
     </button>

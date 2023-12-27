@@ -44,8 +44,8 @@ const Header = () => {
             return (
               <Link key={id} href={path} onClick={() => setShowNav(false)}>
                 <li
-                  className={`text-xs cursor-pointer  p-2 hover:bg-slate-300/25  rounded-md transition-all duration-300 ${
-                    pathname === path ? "font-semibold" : ""
+                  className={`text-xs cursor-pointer  p-2 hover:bg-black hover:text-white active:bg-black active:text-white  rounded-md transition-all duration-300 ${
+                    pathname === path ? "active" : ""
                   }`}
                 >
                   {title}
@@ -57,8 +57,10 @@ const Header = () => {
       </nav>
 
       <div className="hidden gap-x-6 md:flex">
-        <CustomButton text="Log in" type="light" />
-        <CustomButton text="Signup" type="dark" />
+        <Link href="/login">
+          <CustomButton text="Log in" path="/login" />
+        </Link>
+        <CustomButton text="Signup" path="/signup" />
       </div>
 
       {showNav ? (
