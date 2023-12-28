@@ -1,19 +1,12 @@
 "use client";
 
-import { useAppDispatch } from "@/store";
-import { searchProducts } from "@/store/feature/product/productsSlice";
-import React from "react";
-
 type InputProps = {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const CustomSearchInput = ({ searchValue, setSearchValue }: InputProps) => {
-  const dispatch = useAppDispatch();
-  const handleSearchProduct = () => {
-    dispatch(searchProducts(searchValue));
-  };
+  const handleSearchProduct = () => {};
   return (
     <div className="w-full flex gap-x-4">
       <input
