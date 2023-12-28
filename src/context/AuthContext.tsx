@@ -1,5 +1,8 @@
 "use client";
 
+import { useAppDispatch } from "@/store";
+import { updateCartCount } from "@/store/feature/cart/cartSlice";
+import api from "@/utils/axios";
 import { clearStorage, getFromStorage } from "@/utils/helper";
 import React, {
   ReactNode,
@@ -28,6 +31,7 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -52,6 +56,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       window.removeEventListener("storage", updateAuthStatus);
     };
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      let res = await api.get("/cart/products");
+      if (res.status === 200) {
+        dispatch(updateCartCount(res.data.cart.products.length));
+      }
+    })();
   }, []);
 
   console.log(isLoggedIn, "isLoggedIn");

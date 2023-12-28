@@ -9,10 +9,7 @@
   /* background-color: rgba(0, 0, 0, 0.08); */
 }
 
-/* :root {
-  --bg-secondary: rgb(209 213 219 / 0.25);
-} */
-
+/* custom css classes */
 .flex__center {
   @apply flex justify-center items-center;
 }

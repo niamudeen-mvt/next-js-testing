@@ -4,22 +4,29 @@ import { ProductType } from "@/utils/type";
 import Rating from "./Rating";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { addToCart, selectCart } from "@/store/feature/cart/cartSlice";
+import api from "@/utils/axios";
+import { sendNotifications } from "@/utils/helper";
 
 type Props = {
   product: ProductType;
 };
 
 const ProductCard = ({ product }: Props) => {
-  const { id, price, rating, thumbnail, title, description } = product;
-
-  const dispatch = useAppDispatch();
+  const { _id: id, price, rating, thumbnail, title, description } = product;
   const { products: cartProducts } = useAppSelector(selectCart);
 
-  const handleAddtoCart = () => {
+  const handleAddtoCart = async () => {
     const productExist = cartProducts.findIndex((product) => product.id == id);
 
     if (productExist === -1) {
-      dispatch(addToCart(product));
+      try {
+        let res = await api.post(`/cart/product/${id}`, product);
+        if (res.status === 200) {
+          sendNotifications("success", res.data.message);
+        }
+      } catch (error: any) {
+        sendNotifications("error", error.response.data.message);
+      }
     } else {
       console.log("product already exist");
     }

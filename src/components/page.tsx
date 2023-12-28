@@ -1,50 +1,26 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { removeProduct, selectCart } from "@/store/feature/cart/cartSlice";
 import Image from "next/image";
 import { IoCloseSharp } from "react-icons/io5";
 import Rating from "@/components/product/Rating";
-import api from "@/utils/axios";
-import { sendNotifications } from "@/utils/helper";
-import { useAppDispatch } from "@/store";
-import { updateCartCount } from "@/store/feature/cart/cartSlice";
 
 const CartPage = () => {
-  const [cartProducts, setCartProducts] = useState([]);
+  const { products: cartProducts } = useAppSelector(selectCart);
+
   const dispatch = useAppDispatch();
 
-  const fetchProducts = async () => {
-    try {
-      const res = await api.get("/cart/products");
-      console.log(res);
-      if (res.status === 200) {
-        setCartProducts(res.data.cart.products);
-      }
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const handleRemoveProduct = async (id: string) => {
-    try {
-      let res = await api.delete(`/cart/product/remove/${id}`);
-      if (res.status === 200) {
-        dispatch(updateCartCount(res.data.cartCount));
-        sendNotifications("success", res.data.message);
-        fetchProducts();
-      }
-    } catch (error: any) {
-      sendNotifications("warning", error.response.data.message);
-    }
+  const handleRemoveProduct = (id: string) => {
+    dispatch(removeProduct(id));
   };
 
   return (
     <section>
       <div className="w-[75%] mx-auto flex flex-col gap-y-8 py-10">
         <div className="grid grid-cols-1 gap-6 ">
-          {cartProducts?.length ? (
+          {cartProducts.length ? (
             cartProducts.map(
               ({ _id: id, price, rating, thumbnail, title, description }) => {
                 return (
@@ -67,13 +43,10 @@ const CartPage = () => {
                         <h3 className="font-semibold hover:text-blue-600 capitalize">
                           {title}
                         </h3>
-                        <button
-                          onClick={() => handleRemoveProduct(id)}
+                        <IoCloseSharp
                           className="cursor-pointer"
-                        >
-                          X
-                        </button>
-                        {/* <IoCloseSharp className="cursor-pointer" /> */}
+                          onClick={() => handleRemoveProduct(id)}
+                        />
                       </div>
 
                       <p className="text-sm">{description}</p>

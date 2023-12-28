@@ -37,7 +37,7 @@ const LoginForm = () => {
         router.push("/");
       }
     } catch (error: any) {
-      console.log(error.response.data.message);
+      sendNotifications("error", error.response.data.message);
     }
     reset();
   };

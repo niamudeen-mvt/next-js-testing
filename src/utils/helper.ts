@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+import testImage from "../../public/assets/test.jpg";
 
 export const sendNotifications = (type: string, message: string) => {
   if (type === "success")
@@ -38,4 +39,16 @@ export const getFromStorage = (key: string) => {
 };
 export const clearStorage = () => {
   return localStorage.clear();
+};
+
+export const testProduct = {
+  title: "test product",
+  description: "test desc",
+  thumbnail: testImage,
+  category: "headset",
+  rating: 5,
+  price: 1500,
+  images: [
+    "https://img.freepik.com/free-photo/levitating-music-headphones-display_23-2149817602.jpg?w=740&t=st=1703751881~exp=1703752481~hmac=28bcb7c52a30aadb171fe76b6b27a9160b4d1a82f099ba4001a18841bf4d42f5",
+  ],
 };

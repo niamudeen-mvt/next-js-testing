@@ -19,7 +19,7 @@ const Header = () => {
   const { isLoggedIn, handleLogout } = useAuth();
   const [showNav, setShowNav] = useState(false);
   const pathname = usePathname();
-  const { products: cartProducts } = useAppSelector(selectCart);
+  const { cartCount } = useAppSelector(selectCart);
 
   const windowSize = useWindowSize();
   useEffect(() => {
@@ -76,10 +76,12 @@ const Header = () => {
         <div className="flex items-center gap-x-5">
           <RoundedButton text="Logout" onClick={handleLogout} />
           <div className="relative ">
-            <IoCartOutline size={23} />
-            {cartProducts.length > 0 ? (
+            <Link href="/cart">
+              <IoCartOutline size={23} className="cursor-pointer" />
+            </Link>
+            {cartCount > 0 ? (
               <span className="bg-red-600 text-white text-xs size-4 rounded-full absolute -top-2 -right-2 flex__center">
-                {cartProducts.length > 0 ? cartProducts?.length : ""}
+                {cartCount}
               </span>
             ) : null}
           </div>
