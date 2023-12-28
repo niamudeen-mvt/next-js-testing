@@ -12,8 +12,6 @@ const ProductsListing = () => {
   const fetchProducts = async () => {
     try {
       const res = await api.get("/products");
-      console.log(res, "producsts");
-
       if (res.status === 200) {
         setProducts(res.data.products);
       }
@@ -26,17 +24,13 @@ const ProductsListing = () => {
 
   return (
     <section>
-      {/* <h1 className="font-semibold text-3xl my-10">Trending Products</h1> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {products.length
-          ? products.map(
-              ({ _id, price, rating, thumbnail, title, description }) => {
-                console.log();
-                return (
-                  <div
-                    key={_id}
-                    className="min-h-[350px] max-w-[280px] shadow-md p-5"
-                  >
+          ? products.map(({ _id, price, thumbnail, title, description }) => {
+              console.log();
+              return (
+                <Link key={_id} href={`/products/${_id}`}>
+                  <div className="min-h-[350px] max-w-[300px] w-full shadow-md p-5 mx-auto">
                     <div className="h-[250px] mb-4 flex__center">
                       <Image
                         src={thumbnail}
@@ -57,9 +51,9 @@ const ProductsListing = () => {
                       <p className="text-sm font-semibold">${price}</p>
                     </div>
                   </div>
-                );
-              }
-            )
+                </Link>
+              );
+            })
           : null}
       </div>
     </section>

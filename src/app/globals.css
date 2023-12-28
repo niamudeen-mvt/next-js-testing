@@ -19,3 +19,6 @@
 .common__transition {
   @apply transition-all duration-300;
 }
+.common_section {
+  @apply mt-32;
+}
