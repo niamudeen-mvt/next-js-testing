@@ -1,6 +1,13 @@
 "use client";
 
-import React, { ReactNode, createContext, useContext, useState } from "react";
+import { clearStorage, getFromStorage } from "@/utils/helper";
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type AuthStateTypes = {
   isLoggedIn: boolean;
@@ -24,9 +31,31 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    clearStorage();
   };
 
+  const storedUserId = getFromStorage("userId");
+  useEffect(() => {
+    if (storedUserId) return setIsLoggedIn(true);
+    return setIsLoggedIn(false);
+  }, [storedUserId]);
+
+  const updateAuthStatus = () => {
+    if (storedUserId) return setIsLoggedIn(true);
+    return setIsLoggedIn(false);
+  };
+
+  useEffect(() => {
+    updateAuthStatus();
+    window.addEventListener("storage", updateAuthStatus);
+
+    return () => {
+      window.removeEventListener("storage", updateAuthStatus);
+    };
+  }, []);
+
   console.log(isLoggedIn, "isLoggedIn");
+
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleLogout }}>
       {children}

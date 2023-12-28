@@ -23,11 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <Header />
-          <Container>
-            <Toaster />
-            <AuthProvider>{children}</AuthProvider>
-          </Container>
+          <AuthProvider>
+            <Header />
+            <Container>
+              <Toaster />
+              {children}
+            </Container>
+          </AuthProvider>
         </ReduxProvider>
       </body>
     </html>

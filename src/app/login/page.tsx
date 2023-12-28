@@ -6,7 +6,7 @@ import LoginImage from "../../../public/assets/login.jpg";
 import BasicFormLayout from "@/components/shared/BasicFormLayout";
 import { useForm } from "react-hook-form";
 import api from "@/utils/axios";
-import { sendNotifications } from "@/utils/helper";
+import { sendNotifications, storeInStorage } from "@/utils/helper";
 import { useAuth } from "@/context/AuthContext";
 
 const LoginForm = () => {
@@ -31,10 +31,10 @@ const LoginForm = () => {
       console.log(res, "login");
       if (res.status === 200) {
         setIsLoggedIn(true);
-        localStorage.setItem("userId", res.data.userId);
-        localStorage.setItem("access_token", res.data.access_token);
+        storeInStorage("userId", res.data.userId);
+        storeInStorage("access_token", res.data.access_token);
         sendNotifications("success", res.data.message);
-        router.push("/products");
+        router.push("/");
       }
     } catch (error: any) {
       console.log(error.response.data.message);

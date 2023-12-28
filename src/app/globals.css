@@ -19,3 +19,6 @@
 .active {
   @apply bg-black text-white;
 }
+.common__transition {
+  @apply transition-all duration-300;
+}

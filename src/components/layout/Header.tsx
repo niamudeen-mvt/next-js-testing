@@ -11,8 +11,12 @@ import CustomButton from "../shared/CustomButton";
 import { usePathname } from "next/navigation";
 import { useAppSelector } from "@/store";
 import { selectCart } from "@/store/feature/cart/cartSlice";
+import { useAuth } from "@/context/AuthContext";
+import { IoCartOutline } from "react-icons/io5";
+import RoundedButton from "../shared/button";
 
 const Header = () => {
+  const { isLoggedIn, handleLogout } = useAuth();
   const [showNav, setShowNav] = useState(false);
   const pathname = usePathname();
   const { products: cartProducts } = useAppSelector(selectCart);
@@ -52,10 +56,6 @@ const Header = () => {
                   }`}
                 >
                   {title}
-                  {`  `}
-                  {title == "cart" && cartProducts.length > 0
-                    ? cartProducts?.length
-                    : ""}
                 </li>
               </Link>
             );
@@ -72,15 +72,28 @@ const Header = () => {
           ) : null}
         </ul>
       </nav>
-
-      <div className="hidden gap-x-6 md:flex">
-        <Link href="/login">
-          <CustomButton text="Log in" path="/login" />
-        </Link>
-        <Link href="/signup">
-          <CustomButton text="Signup" path="/signup" />
-        </Link>
-      </div>
+      {isLoggedIn ? (
+        <div className="flex items-center gap-x-5">
+          <RoundedButton text="Logout" onClick={handleLogout} />
+          <div className="relative ">
+            <IoCartOutline size={23} />
+            {cartProducts.length > 0 ? (
+              <span className="bg-red-600 text-white text-xs size-4 rounded-full absolute -top-2 -right-2 flex__center">
+                {cartProducts.length > 0 ? cartProducts?.length : ""}
+              </span>
+            ) : null}
+          </div>
+        </div>
+      ) : (
+        <div className="hidden gap-x-6 md:flex ">
+          <Link href="/login">
+            <CustomButton text="Log in" path="/login" />
+          </Link>
+          <Link href="/signup">
+            <CustomButton text="Signup" path="/signup" />
+          </Link>
+        </div>
+      )}
 
       {showNav ? (
         <IoCloseSharp

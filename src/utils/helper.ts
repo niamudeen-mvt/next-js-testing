@@ -29,3 +29,13 @@ export const sendNotifications = (type: string, message: string) => {
       },
     });
 };
+
+export const storeInStorage = (key: string, value: string) => {
+  return localStorage.setItem(key, value);
+};
+export const getFromStorage = (key: string) => {
+  return localStorage.getItem(key);
+};
+export const clearStorage = () => {
+  return localStorage.clear();
+};
