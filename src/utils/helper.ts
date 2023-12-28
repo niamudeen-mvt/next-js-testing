@@ -1,5 +1,4 @@
 import { toast } from "sonner";
-import testImage from "../../public/assets/test.jpg";
 
 export const sendNotifications = (type: string, message: string) => {
   if (type === "success")
