@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Rating from "@/components/product/Rating";
 import api from "@/utils/axios";
-import { sendNotifications } from "@/utils/helper";
+import { getFromStorage, sendNotifications } from "@/utils/helper";
 import { useAppDispatch } from "@/store";
 import { updateCartCount } from "@/store/feature/cart/cartSlice";
 
@@ -14,21 +14,24 @@ const CartPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await api.get("/cart/products");
-      console.log(res);
-      if (res.status === 200) {
-        let copiedCartProducts = res.data.cart.products.map((product: any) => {
-          return {
-            ...product,
-            total: product.price,
-          };
-        });
-        setCartProducts(copiedCartProducts);
+      const userId = getFromStorage("userId");
+      if (userId) {
+        let res = await api.get(`/cart/products/${userId}`);
+        if (res.status === 200) {
+          let copiedCartProducts = res.data.cart.products.map(
+            (product: any) => {
+              return {
+                ...product,
+                total: product.price,
+              };
+            }
+          );
+          setCartProducts(copiedCartProducts);
+        }
       }
     } catch (error) {}
   };
 
-  console.log(cartProducts);
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -85,6 +88,7 @@ const CartPage = () => {
                     >
                       <div className="w-1/3 mb-4">
                         <Image
+                          priority={true}
                           src={thumbnail}
                           alt="thumbnail"
                           width={100}

@@ -4,6 +4,7 @@ import { useAppDispatch } from "@/store";
 import { updateCartCount } from "@/store/feature/cart/cartSlice";
 import api from "@/utils/axios";
 import { clearStorage, getFromStorage } from "@/utils/helper";
+import { useRouter } from "next/navigation";
 import React, {
   ReactNode,
   createContext,
@@ -32,13 +33,13 @@ export const useAuth = () => {
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
   const handleLogout = async () => {
-    setIsLoggedIn(false);
-    clearStorage();
-
     try {
+      setIsLoggedIn(false);
+      clearStorage();
       let res = await api.delete("/auth/logout");
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -65,15 +66,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      let res = await api.get("/cart/products");
-      if (res.status === 200) {
-        dispatch(updateCartCount(res.data.cart.products.length));
-      }
-    })();
-  }, []);
-
-  console.log(isLoggedIn, "isLoggedIn");
+    if (isLoggedIn) {
+      (async () => {
+        const userId = getFromStorage("userId");
+        if (userId) {
+          let res = await api.get(`/cart/products/${userId}`);
+          if (res.status === 200) {
+            dispatch(updateCartCount(res.data.cart.products.length));
+          }
+        }
+      })();
+    }
+  }, [isLoggedIn, dispatch]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleLogout }}>

@@ -17,6 +17,7 @@ const ProductCard = ({ product }: Props) => {
     >
       <div className="h-[150px] w-full mb-4">
         <Image
+          priority={true}
           src={thumbnail}
           alt="thumbnail"
           width={100}

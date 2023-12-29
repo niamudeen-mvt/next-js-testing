@@ -8,6 +8,7 @@ import api from "@/utils/axios";
 import { sendNotifications } from "@/utils/helper";
 import { updateCartCount } from "@/store/feature/cart/cartSlice";
 import { useAppDispatch } from "@/store";
+import Loader from "@/components/shared/Loader";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -46,13 +47,20 @@ const ProductDetail = () => {
   const { title, category, description, images, price, rating, thumbnail } =
     product;
 
+  if (!thumbnail || !images) return <Loader />;
   return (
     <section className="bg-secondary w-full sm:w-[80%] m-auto p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
         {/* product image */}
         <div className="flex flex-col gap-y-6  sm:px-10">
           <div className="h-[500px] w-full relative mx-auto">
-            <Image src={thumbnail} alt="product" fill />
+            <Image
+              src={thumbnail}
+              alt="product"
+              fill
+              priority={true}
+              loading="eager"
+            />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -66,6 +74,8 @@ const ProductDetail = () => {
                   height={100}
                   onClick={() => setActiveImg(index)}
                   className="cursor-pointer size-32"
+                  priority={true}
+                  loading="eager"
                 />
               );
             })}

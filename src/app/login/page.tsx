@@ -28,7 +28,6 @@ const LoginForm = () => {
         ...rest,
       };
       const res = await api.post("/auth/login", payload);
-      console.log(res, "login");
       if (res.status === 200) {
         setIsLoggedIn(true);
         storeInStorage("userId", res.data.userId);

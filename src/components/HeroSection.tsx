@@ -9,6 +9,7 @@ const HeroSection = () => {
         src={bannerImage}
         alt="slider"
         className="rounded-3xl absolute h-full object-cover"
+        priority={true}
       />
       <div className="absolute bottom-0 font-semibold text-white p-10 sm:p-20  z-10 flex flex-col gap-y-2 ">
         <h3 className="capitalize">Featured</h3>

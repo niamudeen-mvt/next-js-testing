@@ -12,7 +12,6 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async function (config) {
-    console.log(config);
     const access_token = getFromStorage("access_token");
     if (config.url !== "/auth/login" && config.url !== "/auth/register") {
       config.headers["Authorization"] = `Bearer ${access_token}`;
@@ -31,7 +30,6 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    console.log(error);
     if (error.response && error.response.status === 401 && !isRefreshing) {
       isRefreshing = true;
       try {
