@@ -33,9 +33,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useAppDispatch();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsLoggedIn(false);
     clearStorage();
+
+    try {
+      let res = await api.delete("/auth/logout");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const storedUserId = getFromStorage("userId");

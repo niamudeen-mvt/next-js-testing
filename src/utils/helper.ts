@@ -1,5 +1,7 @@
 import { toast } from "sonner";
 
+// notifications =============
+
 export const sendNotifications = (type: string, message: string) => {
   if (type === "success")
     return toast.success(message, {
@@ -8,6 +10,7 @@ export const sendNotifications = (type: string, message: string) => {
       style: {
         backgroundColor: "#66bb6a",
         color: "white",
+        border: "none",
       },
     });
   if (type === "warning")
@@ -17,6 +20,7 @@ export const sendNotifications = (type: string, message: string) => {
       style: {
         backgroundColor: "#fdd835",
         color: "white",
+        border: "none",
       },
     });
   if (type === "error")
@@ -26,9 +30,12 @@ export const sendNotifications = (type: string, message: string) => {
       style: {
         backgroundColor: "#ff7043",
         color: "white",
+        border: "none",
       },
     });
 };
+
+// localStoarge =====================
 
 export const storeInStorage = (key: string, value: string) => {
   if (typeof window !== "undefined") {
