@@ -6,13 +6,13 @@ import { menuItems } from "@/utils/constants";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoCloseSharp } from "react-icons/io5";
 import { FaSquareXing } from "react-icons/fa6";
+import { IoCartOutline } from "react-icons/io5";
 import useWindowSize from "@/hooks/useWindowSize";
 import CustomButton from "../shared/CustomButton";
 import { usePathname } from "next/navigation";
 import { useAppSelector } from "@/store";
 import { selectCart } from "@/store/feature/cart/cartSlice";
 import { useAuth } from "@/context/AuthContext";
-import { IoCartOutline } from "react-icons/io5";
 import RoundedButton from "../shared/button";
 
 const Header = () => {
